@@ -47,7 +47,7 @@ mkinitcpio -P
 passwd # password for root user
 # Bootloader
 pacman --noconfirm -S grub
-grub-install /dev/sdx
+grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 # Programs to be installed
 pacman -S --noconfirm vim git networkmanager \
