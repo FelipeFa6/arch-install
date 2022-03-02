@@ -94,5 +94,7 @@ git clone --depth=1 https://github.com/felipefa6/st.git $installdir/st
 doas make -C $installdir/st install
 git clone --depth=1 https://git.suckless.org/dmenu $installdir/dmenu
 doas make -C $installdir/dmenu install
+git clone --depth=1 https://git.suckless.org/surf $installdir/surf
+doas make -C $installdir/surf install
 exit
 
