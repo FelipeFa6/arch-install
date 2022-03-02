@@ -67,18 +67,10 @@ echo "permit nopass :wheel" >> /etc/doas.conf
 # User creation
 echo "Enter a username: "
 read username
-useradd -m -G wheel -s $(which zsh) $username
+useradd -m -G wheel -s /bin/zsh $username
 passwd $username
-echo "Pre-Installation finish reboot now"
-ai3_path=/home/$username/arch_install3.sh
-sed '1,/^#part3$/d' arch_install2.sh > $ai3_path
-chown $username:$username $ai3_path
-chmod +x $ai3_path
-su -c $ai3_path -s /bin/sh $username
-exit
+echo "Pre-Installation finished"
 
-#part3
-printf '\033c'
 cd $HOME
 git clone --depth=1 https://github.com/felipe/dotfiles.git $HOME/.dotfiles
 cp -r $HOME/.dotfiles/.config $HOME/
