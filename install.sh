@@ -1,6 +1,10 @@
 DRIVE="/dev/sda";
-
 SYSTEMPARTITION="/dev/sda1";
+
+# Choose your drivers
+DRIVERS="AMD";
+#DRIVERS="INTEL";
+#DRIVERS="NVIDIA";
 
 #part1
 echo "Arch install script\n";
@@ -70,6 +74,22 @@ pacman -S --noconfirm vim git networkmanager \
   pipewire pipewire-pulse pulsemixer \
   bluez bluez-utils \
   zsh doas zathura zathura-pdf-poppler sxiv inetutils
+
+#Video Drivers
+echo "Installing $DRIVERS Drivers"
+case $DRIVERS in
+        "AMD")
+					pacman -S --noconfirm xf86-video-amdgpu mesa
+					;;
+        "INTEL")
+					pacman -S --noconfirm xf86-video-intel mesa
+          ;;
+        "NVIDIA")
+					pacman -S --noconfirm nvidia nvidia-utils
+          ;;
+esac
+
+
 
 pacman -Rs --noconfirm sudo
 echo "permit nopass :wheel" >> /etc/doas.conf
