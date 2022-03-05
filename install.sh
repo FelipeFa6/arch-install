@@ -109,6 +109,7 @@ exit
 printf '\033c'
 cd $HOME
 
+git clone --depth=1 https://github.com/felipefa6/.vim
 git clone --depth=1 https://github.com/felipefa6/dotfiles.git $HOME/.dotfiles
 cp -r $HOME/.dotfiles/.config $HOME/
 cp -r $HOME/.dotfiles/bin $HOME/
