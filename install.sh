@@ -60,7 +60,6 @@ read hostname
 echo $hostname > /etc/hostname
 echo "127.0.0.1       localhost" >> /etc/hosts
 echo "::1             localhost" >> /etc/hosts
-echo "127.0.1.1       $hostname.localdomain $hostname" >> /etc/hosts
 mkinitcpio -P
 passwd
 
@@ -90,8 +89,10 @@ case $DRIVERS in
 esac
 
 pacman -Rs --noconfirm sudo
+# doas config
 echo "permit nopass :wheel" >> /etc/doas.conf
 systemctl enable NetworkManager
+
 echo "Enter a username: "
 read username
 useradd -mG wheel $username
@@ -116,18 +117,19 @@ cp -r $HOME/.dotfiles/bin $HOME/
 cp $HOME/.dotfiles/.zprofile $HOME/
 
 # Post installation software
-mkdir $HOME/.local/src
-installdir="$HOME/.local/src"
-git clone --depth=1 https://github.com/felipefa6/dwm.git $installdir/dwm
+installdir="/usr/src/"
+doas mkdir $installdir
+
+doas git clone --depth=1 https://git.suckless.org/dwm $installdir/dwm
 doas make -C $installdir/dwm install
 
-git clone --depth=1 https://github.com/felipefa6/st.git $installdir/st
+doas git clone --depth=1 https://git.suckless.org/st $installdir/st
 doas make -C $installdir/st install
 
-git clone --depth=1 https://git.suckless.org/dmenu $installdir/dmenu
+doas git clone --depth=1 https://git.suckless.org/dmenu $installdir/dmenu
 doas make -C $installdir/dmenu install
 
-git clone --depth=1 https://git.suckless.org/surf $installdir/surf
+doas git clone --depth=1 https://git.suckless.org/surf $installdir/surf
 doas make -C $installdir/surf install
 exit
 
