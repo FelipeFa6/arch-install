@@ -41,6 +41,14 @@ fi
 
 mount $SYSTEMPARTITION /mnt
 pacstrap /mnt base base-devel linux-lts linux-firmware
+
+#Personal
+mkdir /mnt/mnt/st1
+mkdir /mnt/mnt/st2
+
+mount /dev/sdb1 /mnt/mnt/st1
+mount /dev/sdc1 /mnt/mnt/st2
+
 genfstab -U /mnt >> /mnt/etc/fstab
 sed '1,/^#part2$/d' `basename $0` > /mnt/arch_install2.sh
 chmod +x /mnt/arch_install2.sh
@@ -131,5 +139,6 @@ doas make -C $installdir/dmenu install
 
 doas git clone --depth=1 https://git.suckless.org/surf $installdir/surf
 doas make -C $installdir/surf install
+
 exit
 
