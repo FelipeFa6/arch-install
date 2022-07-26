@@ -77,10 +77,10 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 pacman -S --noconfirm vim git networkmanager \
   xorg-server xorg-xinit libxinerama libxft webkit2gtk xorg-xsetroot xwallpaper \
-  gcr gstreamer gst-plugins-good gst-libav gst-plugins-base xdg-utils \
-  pipewire pipewire-pulse pulsemixer \
+  chromium \
   bluez bluez-utils \
-  zsh doas zathura zathura-pdf-poppler sxiv inetutils
+  pulseaudio pulseaudio-bluetooth pulsemixer \
+  ksh doas zathura zathura-pdf-poppler sxiv inetutils
 
 #Video Drivers
 echo "Installing $DRIVERS Drivers"
@@ -100,7 +100,7 @@ pacman -Rs --noconfirm sudo
 # doas config
 echo "permit nopass :wheel" >> /etc/doas.conf
 systemctl enable NetworkManager
-
+clear
 echo "Enter a username: "
 read username
 useradd -mG wheel $username
@@ -136,9 +136,6 @@ doas make -C $installdir/st install
 
 doas git clone --depth=1 https://git.suckless.org/dmenu $installdir/dmenu
 doas make -C $installdir/dmenu install
-
-doas git clone --depth=1 https://git.suckless.org/surf $installdir/surf
-doas make -C $installdir/surf install
 
 exit
 
