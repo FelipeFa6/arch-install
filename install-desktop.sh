@@ -55,7 +55,6 @@ chmod +x /mnt/arch_install2.sh
 arch-chroot /mnt ./arch_install2.sh
 exit 
 
-
 #part2
 printf '\033c'
 ln -sf /usr/share/zoneinfo/Chile/Continental /etc/localtime
@@ -80,7 +79,7 @@ pacman -S --noconfirm vim git networkmanager \
   chromium \
   bluez bluez-utils \
   pulseaudio pulseaudio-bluetooth pulsemixer \
-  ksh doas zathura zathura-pdf-poppler sxiv inetutils
+  doas
 
 #Video Drivers
 echo "Installing $DRIVERS Drivers"
@@ -105,7 +104,6 @@ echo "Enter a username: "
 read username
 useradd -mG wheel $username
 passwd $username
-doas chsh -s $(which zsh) $username
 echo "Pre-Installation Finish Reboot now"
 ai3_path=/home/$username/arch_install3.sh
 sed '1,/^#part3$/d' arch_install2.sh > $ai3_path
