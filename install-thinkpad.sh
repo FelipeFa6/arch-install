@@ -78,4 +78,24 @@ su -c $ai3_path -s /bin/sh $username
 exit 
 
 #part3
+printf '\033c'
+cd $HOME
+
+git clone --depth=1 https://github.com/felipefa6/vim .vim
+git clone --depth=1 https://github.com/felipefa6/dotfiles.git
+
+# Post installation software
+installdir="/usr/src/"
+doas mkdir $installdir
+
+doas git clone --depth=1 https://git.suckless.org/dwm $installdir/dwm
+doas make -C $installdir/dwm install
+
+doas git clone --depth=1 https://git.suckless.org/st $installdir/st
+doas make -C $installdir/st install
+
+doas git clone --depth=1 https://git.suckless.org/dmenu $installdir/dmenu
+doas make -C $installdir/dmenu install
+
 exit
+
