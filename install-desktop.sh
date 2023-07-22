@@ -1,3 +1,4 @@
+USERNAME="felipe";
 DRIVE="/dev/sda";
 SYSTEMPARTITION="/dev/sda1";
 
@@ -44,10 +45,7 @@ pacstrap /mnt base base-devel linux-lts linux-firmware
 
 #Personal
 mkdir /mnt/mnt/st1
-mkdir /mnt/mnt/st2
-
 mount /dev/sdb1 /mnt/mnt/st1
-mount /dev/sdc1 /mnt/mnt/st2
 
 genfstab -U /mnt >> /mnt/etc/fstab
 sed '1,/^#part2$/d' `basename $0` > /mnt/arch_install2.sh
@@ -74,12 +72,16 @@ pacman --noconfirm -S grub
 grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg 
 
-pacman -S --noconfirm vim git networkmanager \
-  xorg-server xorg-xinit libxinerama libxft webkit2gtk xorg-xsetroot xwallpaper \
-  chromium \
-  bluez bluez-utils \
-  pulseaudio pulseaudio-bluetooth pulsemixer \
-  doas
+pacman -S --noconfirm vim git networkmanager doas
+	# xorg-server xorg-xinit libxinerama libxft webkit2gtk xorg-xsetroot xwallpaper \
+	# chromium \
+	# bluez bluez-utils \
+	# pulseaudio pulseaudio-bluetooth pulsemixer \
+	# doas
+
+cd
+git clone https://aur.archlinux.org/rtl88x2bu-dkms-git.git wifi
+pacman -S linux-headers
 
 #Video Drivers
 echo "Installing $DRIVERS Drivers"
@@ -100,40 +102,7 @@ pacman -Rs --noconfirm sudo
 echo "permit nopass :wheel" >> /etc/doas.conf
 systemctl enable NetworkManager
 clear
-echo "Enter a username: "
-read username
-useradd -mG wheel $username
-passwd $username
-echo "Pre-Installation Finish Reboot now"
-ai3_path=/home/$username/arch_install3.sh
-sed '1,/^#part3$/d' arch_install2.sh > $ai3_path
-chown $username:$username $ai3_path
-chmod +x $ai3_path
-su -c $ai3_path -s /bin/sh $username
-exit 
 
-#part3
-printf '\033c'
-cd $HOME
-
-git clone --depth=1 https://github.com/felipefa6/.vim
-git clone --depth=1 https://github.com/felipefa6/dotfiles.git $HOME/.dotfiles
-cp -r $HOME/.dotfiles/.config $HOME/
-cp -r $HOME/.dotfiles/bin $HOME/
-cp $HOME/.dotfiles/.zprofile $HOME/
-
-# Post installation software
-installdir="/usr/src/"
-doas mkdir $installdir
-
-doas git clone --depth=1 https://git.suckless.org/dwm $installdir/dwm
-doas make -C $installdir/dwm install
-
-doas git clone --depth=1 https://git.suckless.org/st $installdir/st
-doas make -C $installdir/st install
-
-doas git clone --depth=1 https://git.suckless.org/dmenu $installdir/dmenu
-doas make -C $installdir/dmenu install
-
-exit
-
+echo "Password for => $USERNAME"
+useradd -mG wheel $USERNAME
+passwd $USERNAME
