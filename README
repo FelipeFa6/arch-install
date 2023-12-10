@@ -1,1 +1,26 @@
 Arch Linux auto install script.
+---
+
+2 different scripts to use in my machines, bios
+(desktop) and uefi (thinkpad).
+
+[Internet]
+dhcpcd, iwd & rtl88x2bu-dkms (personal)
+
+[Browser]
+Firefox
+
+[AUDIO]
+PulseAudio
+
+[LOCATION]
+LANG: en_US.UTF-8
+LOCALTIME: Chile/Continental
+
+[DRIVERS]
+Video: AMD
+
+[COMPILED]
+Window Manager: DWM (dmenu)
+Terminal: ST
+

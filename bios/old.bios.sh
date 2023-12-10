@@ -80,6 +80,8 @@ pacman -S --noconfirm vim git networkmanager doas
 	# doas
 
 cd
+
+
 git clone https://aur.archlinux.org/rtl88x2bu-dkms-git.git wifi
 pacman -S linux-headers
 
